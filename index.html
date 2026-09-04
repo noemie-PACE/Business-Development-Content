@@ -196,7 +196,7 @@
 
       <div class="section">
         <h2>Executive Summary</h2>
-        <p style="color:var(--text-dim);font-size:13.5px;max-width:720px;">No batch has been run yet. Once the first batch completes, this will state the number of Swiss D2C brands screened and name the strongest signals found.</p>
+        <p style="color:var(--text-dim);font-size:13.5px;max-width:720px;">Batch 1 screened 54 Swiss D2C consumer brands across fashion and apparel, food and beverage, beauty and wellness, home and lifestyle, and sports and outdoor equipment against this dashboard's Switzerland-only, CHF 20,000-100,000 content-first scope. Four brands cleared the full evidence bar with a signal no more than two months old: Mammut, just sold to a new majority owner with its Swiss base intact, and On, whose newly launched global "Race for the Feeling" campaign opens a narrow, home-market content localisation opportunity, are the strongest findings, alongside BMC Switzerland's new Andermatt experience centre and La Prairie's Swiss Pristine launch.</p>
       </div>
 
       <div class="section">
@@ -315,8 +315,80 @@ const REACHED_OUT_KEY = 'pace-reached-out-v1';
 // No batches have been researched yet. The first Cowork run for this
 // dashboard appends its batchN array here, before batchScanCounts and
 // seedBatches below, exactly as the sports dashboard does.
-const batchScanCounts = {}; // organisations searched but not qualified, per batch
-const seedBatches = [ ];
+const batch1 = [
+  {
+    id:'on-running', inFocus:true, name:'On', country:'Switzerland', industry:'D2C: Sports & Outdoor Equipment',
+    categories:['Content Retainer','Brand Activation','Community Management'],
+    score:50, friction:'High',
+    frictionReasoning:'On already runs its global creative through an established agency of record (CANADA, credited on the July 2026 campaign) plus its own large in house marketing function. A public company of this scale typically runs formal, competitive agency review processes rather than ad hoc engagement, so a scoped local workstream is a realistic but narrow entry point, not an open door.',
+    scoreBreakdown:{'Strategic Fit':55,'Buying Signal Strength':75,'Budget Fit':45,'Content Opportunity':65,'Digital Transformation Opportunity':30,'Ease of Access':20,'Decision Maker Identified':0,'Competitive Intensity (favourability)':15},
+    signals:[{text:'On launched "Race for the Feeling," its first global campaign under the new Run On Clouds brand platform, starring world champion runner Hellen Obiri, alongside the launch of the LightSpray Cloudboom Strike 2 and Cloudboom Strike 2 shoes.', source:'On Pressroom, 30 July 2026', url:'https://press.on-running.com/on-introduces-race-for-the-feeling-the-first-global-campaign-under-its-new-run-on-clouds-brand-platform'}],
+    qualifiesD2C:true, qualifiesD2CBasis:'Sells directly to consumers via its own e-commerce site (on.com) alongside retail, is brand-led with a large always-on content operation across video, social and campaign creative, and was founded and is headquartered in Zurich, Switzerland.',
+    abilityToPayBasis:'Revenue: On Holding AG reported CHF 2.32 billion in sales for 2024, a 29.4 percent year on year increase, per the company\'s own reporting cited on Wikipedia (https://en.wikipedia.org/wiki/On_(company)). Employees: 3,963 as of 31 December 2025, per stockanalysis.com\'s tracking of On Holding AG\'s public filings (https://stockanalysis.com/stocks/onon/employees/). Both clear the CHF/EUR 5 million revenue and 50 employee thresholds by a wide margin.',
+    contentVolumeBasis:'Channel: Instagram (@on). A live follower count was not re-confirmed via direct account view this batch, automated access to Instagram is blocked, so the figure is an estimate: HypeAuditor\'s independently tracked audience report shows On gained approximately 949,000 new Instagram followers in the twelve months to March 2025 alone, with roughly 5,875 average views per post, which confirms a multi-million follower base well above the 25,000 threshold (source: HypeAuditor, "Inside On Running\'s Instagram Growth in 2025", https://blog.hypeauditor.com/how-on-running-grew-its-instagram-audience-in-2025/, checked 3 September 2026). Posting cadence on the brand\'s own handle was not directly re-observed this batch; it is inferred from a continuous cycle of press-covered product and campaign launches roughly monthly through 2026 rather than confirmed by a live feed count.',
+    primaryPaceService:'Scalable Content Production', secondaryPaceServices:['Video Content','Social and Digital Ecosystem'],
+    scaleCaution:true,
+    whyPace:'On\'s global "Race for the Feeling" campaign runs through its established creative agency CANADA at a scale far beyond a single boutique studio\'s realistic share, so that campaign itself is not PACE\'s opening. The credible angle is narrower: using PACE\'s Zurich base and scalable production model, PACE localises and repurposes the global asset library into Swiss and DACH market social formats, and produces home-market or behind-the-scenes content around On\'s Zurich headquarters, rather than competing for the global brand mandate.',
+    outreach:'Why now: On has just launched its first global campaign under a new brand platform, which will generate a large asset library that typically needs local market versioning. Signal: On Pressroom, 30 July 2026. Service: Scalable Content Production (localisation and repurposing) for the Swiss and DACH market. First conversation: approach On\'s Zurich based regional or DACH marketing team, not the global brand team, with a narrow, low risk proposal to repurpose existing global campaign assets into Swiss market social formats.',
+    budgetEstimate:'CHF 20,000-45,000 (estimate, at the lower end of PACE\'s typical range, reflecting a deliberately narrow, scoped localisation and repurposing workstream rather than a broad retainer; not a confirmed client budget).',
+    contacts:[],
+    newThisWeek:true
+  },
+  {
+    id:'mammut', inFocus:true, name:'Mammut', country:'Switzerland', industry:'D2C: Sports & Outdoor Equipment',
+    categories:['Content Retainer','Brand Activation','Digital Asset Management'],
+    score:57, friction:'Medium',
+    frictionReasoning:'Mammut already runs a large, professionally produced content and creator/PR operation (DEPT-reported 23m+ campaign impressions, ranked 4th globally among outdoor brands by media impact), so an existing agency relationship is likely. However, the just-announced change of ownership typically triggers a marketing and vendor review within the first year, which is a genuine opening rather than a defended incumbent relationship.',
+    scoreBreakdown:{'Strategic Fit':60,'Buying Signal Strength':85,'Budget Fit':55,'Content Opportunity':70,'Digital Transformation Opportunity':35,'Ease of Access':30,'Decision Maker Identified':0,'Competitive Intensity (favourability)':25},
+    signals:[{text:'Jacobs Capital is selling Swiss outdoor brand Mammut to Chinese asset manager CPE, with headquarters and the design and innovation functions staying in Seon and Lenzburg, Switzerland, and CEO Heiko Schaefer continuing in his role; the new owner plans to accelerate international growth in Asia and North America.', source:'20min.ch, 30 July 2026', url:'https://www.20min.ch/story/kanton-aargau-schweizer-traditionsmarke-mammut-wird-chinesisch-103611112'}],
+    qualifiesD2C:true, qualifiesD2CBasis:'Sells directly to consumers via mammut.com alongside a large retail and dealer network, brand-led with a large always-on content and creator programme; headquartered in Seon, Switzerland since 1862.',
+    abilityToPayBasis:'Employees: approximately 900, and operations in around 51 countries, per Freshfields\' deal announcement (https://www.freshfields.com/en/our-thinking/news/news-search/2026/08/freshfields-advises-mammut-sports-management-on-sale-to-cpe) and 20min.ch\'s coverage of the CPE transaction, which also reports double-digit average revenue growth in recent years and an operating margin that has more than doubled since 2021, both comfortably clearing the CHF/EUR 5 million and 50 employee thresholds.',
+    contentVolumeBasis:'Channel: Instagram (@mammut). 725,193 followers, verified via direct account view on 3 September 2026. Posting cadence: multiple posts per week confirmed directly from the brand\'s own account (dated posts on 3 and 2 September and 27, 24, 23, 21 and 20 August 2026).',
+    primaryPaceService:'Content Retainer', secondaryPaceServices:['Video Content','Digital Asset Management'],
+    whyPace:'Mammut has just been acquired by CPE from Jacobs Capital in a deal announced 30 July 2026 that keeps design, innovation and headquarters in Seon and Lenzburg, Switzerland, while the new owner pushes international growth in Asia-Pacific and North America. Ownership changes like this typically bring a marketing and vendor review within the first year. PACE\'s realistic opening is a scoped Swiss home-market content or heritage storytelling workstream tied to the Seon and Lenzburg base, not the international expansion mandate itself, which is likely to sit with larger or Asia-based partners.',
+    outreach:'Why now: Mammut was just sold to a new majority owner, CPE, with Swiss headquarters and management continuing but a clear mandate to scale internationally. Signal: 20min.ch and Freshfields deal coverage, 30 July to 3 August 2026. Service: Content Retainer plus Digital Asset Management for the Swiss home-market story. First conversation: ask how the incoming ownership is thinking about the brand\'s Swiss heritage story as it scales abroad, and offer a scoped home-market content pilot ahead of any formal review.',
+    budgetEstimate:'CHF 25,000-70,000 (estimate, based on comparable mid-size outdoor brand content retainer scopes; not a confirmed client budget).',
+    contacts:[],
+    newThisWeek:true
+  },
+  {
+    id:'bmc-switzerland', inFocus:true, name:'BMC Switzerland', country:'Switzerland', industry:'D2C: Sports & Outdoor Equipment',
+    categories:['Event Content Production','Content Retainer','Community Management'],
+    score:56, friction:'Medium',
+    frictionReasoning:'BMC is mid-sized and Swiss-headquartered without evidence of a large layered global creative agency structure, which lowers friction relative to a giant like On. Some friction remains because the Andermatt initiative is a partnership between four organisations, so any content mandate would need to be coordinated across BMC, Andermatt Swiss Alps, Tudor Pro Cycling and Swiss Cycology Tours.',
+    scoreBreakdown:{'Strategic Fit':65,'Buying Signal Strength':55,'Budget Fit':60,'Content Opportunity':75,'Digital Transformation Opportunity':40,'Ease of Access':50,'Decision Maker Identified':0,'Competitive Intensity (favourability)':45},
+    signals:[{text:'BMC opened a dedicated showroom and Alpine test-ride centre in Andermatt, partnering with Andermatt Swiss Alps, Tudor Pro Cycling and Swiss Cycology Tours, letting visitors browse the full bike lineup or book test rides on the Alpine terrain that inspired the bikes.', source:'BMC Switzerland blog, 16 July 2026', url:'https://bmc-switzerland.com/blogs/news/bmc-comes-to-andermatt'}],
+    qualifiesD2C:true, qualifiesD2CBasis:'Sells directly to consumers via bmc-switzerland.com alongside a dealer network, brand-led with a large always-on Instagram content operation; headquartered in Grenchen, Switzerland since 2006.',
+    abilityToPayBasis:'Employees: 101-250, per jobs.ch\'s company profile for BMC Switzerland AG (https://www.jobs.ch/en/companies/00f54ab4-6a02-42ca-a1d2-6c1bdf6d8a36-bmc-switzerland-ag/), comfortably above the 50 employee threshold.',
+    contentVolumeBasis:'Channel: Instagram (@ride_bmc). 417,389 followers, verified via direct account view on 3 September 2026. Posting cadence: multiple posts per week confirmed directly (dated posts on 3, 2 and 1 September and 27, 25, 24, 21 and 20 August 2026).',
+    primaryPaceService:'Event Content Production', secondaryPaceServices:['Video Content','Social and Digital Ecosystem'],
+    whyPace:'BMC just opened a dedicated showroom and Alpine test-ride centre in Andermatt, a home-market experience launch that pairs naturally with content coverage: launch video, athlete and creator test rides, and ongoing social content from the Alpine location. BMC is mid-sized and Swiss-headquartered in Grenchen, a realistic scale match for a 30-person studio, without the layered global agency structure of a brand like On.',
+    outreach:'Why now: a new Alpine flagship test-ride centre just opened in partnership with Andermatt Swiss Alps, Tudor Pro Cycling and Swiss Cycology Tours. Signal: BMC Switzerland\'s own blog, 16 July 2026. Service: Event Content Production for the Andermatt launch plus an ongoing content retainer. First conversation: offer to document the Andermatt experience (rider testimonials, behind-the-scenes, Alpine test-ride content) as a pilot, then propose a broader retainer.',
+    budgetEstimate:'CHF 25,000-60,000 (estimate, based on a scoped event content production plus a trial social content retainer for a mid-sized Swiss brand; not a confirmed client budget).',
+    contacts:[],
+    newThisWeek:true
+  },
+  {
+    id:'la-prairie', inFocus:true, name:'La Prairie', country:'Switzerland', industry:'D2C: Beauty & Wellness',
+    categories:['Content Retainer','Brand Activation','Digital Asset Management'],
+    score:54, friction:'High',
+    frictionReasoning:'La Prairie is part of Beiersdorf\'s global luxury division and almost certainly already works with large international beauty and creative agencies on its global campaigns, so PACE\'s realistic angle is a scoped local addition rather than the primary mandate, and access to decision-makers at this scale is harder than at a mid-sized Swiss company.',
+    scoreBreakdown:{'Strategic Fit':60,'Buying Signal Strength':80,'Budget Fit':45,'Content Opportunity':70,'Digital Transformation Opportunity':30,'Ease of Access':25,'Decision Maker Identified':0,'Competitive Intensity (favourability)':20},
+    signals:[{text:'La Prairie launched Swiss Pristine, its first new skincare collection in 13 years, built around Swiss Glacial Minerals sourced from the Valais Alps and a patented ingredient (HyPower LP52) developed with HES-SO and ETH Zurich, aimed at reaching a younger luxury customer.', source:'VITA Daily, 25 August 2026', url:'https://vitamagazine.com/2026/08/25/is-modern-fatigue-showing-up-on-your-face-la-prairie-has-a-780-solution/'}],
+    qualifiesD2C:true, qualifiesD2CBasis:'Sells directly via laprairie.com and its own boutiques alongside prestige retail, brand-led with continuous global content and campaign activity; La Prairie Group AG is headquartered in Zurich, Switzerland.',
+    abilityToPayBasis:'Revenue: La Prairie generated EUR 478 million in nominal sales in 2025, reported within Beiersdorf\'s Consumer Business Segment in its FY2025 results (https://www.beiersdorf.com/newsroom/press-information/all-press-releases/2026/03/02-full-year-results-2025-beiersdorf-grows-in-a-slowing-market-derma-outperforms), far exceeding the CHF/EUR 5 million threshold.',
+    contentVolumeBasis:'Channel: Instagram (@laprairie). 386,432 followers, verified via direct account view on 3 September 2026, with the Swiss Pristine launch itself visible as a pinned highlight on the profile. Posting cadence: multiple posts per week confirmed directly (dated posts on 3 and 1 September and 28, 24, 21, 19, 17, 14, 11, 8, 6 and 3 August 2026).',
+    primaryPaceService:'Video Content', secondaryPaceServices:['Graphic Design','Social and Digital Ecosystem'],
+    scaleCaution:true,
+    whyPace:'La Prairie just launched Swiss Pristine (1 September 2026), its first new skincare collection in 13 years, built explicitly around Swiss identity: glacial minerals from the Valais Alps and research developed with ETH Zurich and HES-SO. That is a ready-made, home-market storytelling opportunity PACE is well placed to deliver from Zurich: origin-story and behind-the-scenes content around the Valais sourcing and the Swiss research partners, positioned as a scoped addition to whatever global campaign the brand\'s larger agencies are already running, not a replacement for it.',
+    outreach:'Why now: La Prairie\'s first new collection in 13 years just launched, explicitly built on a Swiss glacial-minerals and ETH Zurich research narrative, aimed at reaching a younger luxury customer after a down sales year (Beiersdorf FY2025 results showed La Prairie organic sales down 4.5 percent for the year with a return to growth in Q4). Signal: VITA Daily and Forbes, 24-25 August 2026. Service: origin-story and behind-the-scenes content production tied to the Swiss sourcing and research story. First conversation: pitch a short Swiss-market content piece (Valais sourcing, ETH Zurich lab) as a low-risk way to extend the Swiss Pristine story locally.',
+    budgetEstimate:'CHF 25,000-55,000 (estimate, for a scoped Swiss-market storytelling and content piece around the Swiss Pristine launch, not the brand\'s global campaign; not a confirmed client budget).',
+    contacts:[],
+    newThisWeek:true
+  }
+];
+const batchScanCounts = {1: 50}; // organisations searched but not qualified, per batch
+const seedBatches = [ {n:1, data:batch1} ];
 // Legacy entries permanently purged from the database on load, never re-added by any batch
 const removedIds = [];
 // Leads Noémie has already reached out to. Cross-device, lives in the pushed data;
