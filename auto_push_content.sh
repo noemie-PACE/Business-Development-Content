@@ -71,10 +71,45 @@ if [ -z "$src_batch" ]; then
   exit 0
 fi
 
-if [ -n "$repo_batch" ] && [ "$src_batch" -le "$repo_batch" ]; then
-  log "No new batch (source=batch${src_batch:-none}, live=batch${repo_batch:-none}). Nothing to push."
+if [ -n "$repo_batch" ] && [ "$src_batch" -lt "$repo_batch" ]; then
+  log "Source batch (${src_batch}) is older than live (${repo_batch}) — skipping, not touching live."
   rm -f "$MANUAL_FILE" "$MANUAL_INSTR" "$REVIEW_FILE" "$MERGED_FILE" 2>/dev/null
   exit 0
+fi
+
+# Same batch number as live: this used to be treated as "nothing to do", which
+# silently swallowed a real fix once (batch 1's first save only had 4 of 7
+# leads; Cowork finished writing the other 3 minutes later, but the next poll
+# saw "still batch1" and never re-checked the content, so the missing brands
+# went unpublished for hours until caught manually). Instead, compare the
+# actual content of that batch's array between source and live, and still
+# push if it genuinely differs, e.g. more leads were added, or a lead was
+# corrected, after the batch number was first set.
+same_batch_content_changed=false
+if [ -n "$repo_batch" ] && [ "$src_batch" -eq "$repo_batch" ]; then
+  src_hash=$(python3 - "$SOURCE" "$src_batch" <<'PY'
+import re, sys, hashlib
+content = open(sys.argv[1], encoding='utf-8').read()
+n = sys.argv[2]
+m = re.search(r'const batch%s = \[.*\n\];\n(?=const |\Z)' % n, content, re.S)
+print(hashlib.sha256(m.group(0).encode('utf-8')).hexdigest() if m else 'NONE')
+PY
+)
+  live_hash=$(python3 - "index.html" "$repo_batch" <<'PY'
+import re, sys, hashlib
+content = open(sys.argv[1], encoding='utf-8').read()
+n = sys.argv[2]
+m = re.search(r'const batch%s = \[.*\n\];\n(?=const |\Z)' % n, content, re.S)
+print(hashlib.sha256(m.group(0).encode('utf-8')).hexdigest() if m else 'NONE')
+PY
+)
+  if [ "$src_hash" = "$live_hash" ]; then
+    log "No new batch (source=batch${src_batch}, live=batch${repo_batch}), and batch ${src_batch}'s content is unchanged. Nothing to push."
+    rm -f "$MANUAL_FILE" "$MANUAL_INSTR" "$REVIEW_FILE" "$MERGED_FILE" 2>/dev/null
+    exit 0
+  fi
+  log "Batch ${src_batch} content differs from what is live even though the batch number is the same — treating as an update to push, not a duplicate."
+  same_batch_content_changed=true
 fi
 
 check=$(python3 - "$SOURCE" <<'PY'
@@ -109,19 +144,49 @@ live = open(live_path, encoding='utf-8').read()
 
 errors = []
 
+# Match a batch array to its true end: the boundary is the next `const `
+# declaration or end of file, never just the first "\n];\n" the regex hits.
+# A plain non-greedy `.*?\n\];\n` can stop early at an internal array field
+# inside one of the lead objects (e.g. a `secondaryPaceServices:[...]` line
+# that happens to end with "];"), silently truncating the batch and losing
+# leads with no syntax error to catch it. This bit us for real on batch 1
+# (3 of 7 leads, including Victorinox, went missing this way).
+def batch_pattern(n):
+    return re.compile(r'const batch%d = \[.*\n\];\n(?=const |\Z)' % n, re.S)
+
 live_batches = set(int(n) for n in re.findall(r'const batch(\d+) = \[', live))
 src_batches = set(int(n) for n in re.findall(r'const batch(\d+) = \[', src))
+
 new_batches = sorted(src_batches - live_batches)
+existing_batches = sorted(src_batches & live_batches)
+
 new_batch_blocks = ''
-if not new_batches:
-    errors.append('NO_NEW_BATCH_ARRAY_IN_SOURCE')
-else:
-    for n in new_batches:
-        m = re.search(r'const batch%d = \[.*?\n\];\n' % n, src, re.S)
-        if not m:
-            errors.append(f'COULD_NOT_EXTRACT_BATCH_{n}')
-        else:
-            new_batch_blocks += m.group(0)
+for n in new_batches:
+    m = batch_pattern(n).search(src)
+    if not m:
+        errors.append(f'COULD_NOT_EXTRACT_BATCH_{n}')
+    else:
+        new_batch_blocks += m.group(0)
+
+# Batches that already exist live: only resync ones whose content actually
+# changed (the bash wrapper already decided this needs a push at all, but
+# with multiple batches present we still only want to touch the ones that
+# differ, not blindly rewrite every batch every run).
+changed_batches = []
+for n in existing_batches:
+    m_src = batch_pattern(n).search(src)
+    m_live = batch_pattern(n).search(live)
+    if not m_src:
+        errors.append(f'COULD_NOT_EXTRACT_BATCH_{n}')
+        continue
+    if not m_live:
+        errors.append(f'COULD_NOT_FIND_LIVE_BATCH_{n}')
+        continue
+    if m_src.group(0) != m_live.group(0):
+        changed_batches.append((n, m_src.group(0)))
+
+if not new_batches and not changed_batches:
+    errors.append('NO_NEW_OR_CHANGED_BATCH_ARRAY_IN_SOURCE')
 
 m_counts = re.search(r'const batchScanCounts = \{.*?\};[^\n]*\nconst seedBatches = \[.*?\];', src, re.S)
 if not m_counts:
@@ -149,6 +214,15 @@ new_batch_blocks = fix_dashes(new_batch_blocks)
 exec_block = fix_dashes(m_exec.group(0))
 
 merged = live
+
+# Resync any already-live batch whose content changed, in place, before
+# touching anything else.
+for n, block in changed_batches:
+    old = batch_pattern(n).search(merged)
+    if not old:
+        print(f'EXTRACT_FAIL:COULD_NOT_FIND_LIVE_BATCH_{n}_AT_MERGE_TIME')
+        sys.exit(0)
+    merged = merged[:old.start()] + fix_dashes(block) + merged[old.end():]
 
 old_counts = re.search(r'const batchScanCounts = \{.*?\};[^\n]*\nconst seedBatches = \[.*?\];', merged, re.S)
 if not old_counts:
@@ -203,7 +277,13 @@ if git diff --cached --quiet; then
   exit 0
 fi
 
-if git commit -m "Weekly BD Content scan, batch ${src_batch}" -q && git push -q; then
+if $same_batch_content_changed; then
+  commit_msg="Update batch ${src_batch} content (corrected/completed after initial save)"
+else
+  commit_msg="Weekly BD Content scan, batch ${src_batch}"
+fi
+
+if git commit -m "$commit_msg" -q && git push -q; then
   sha=$(git rev-parse --short HEAD)
   log "Pushed batch ${src_batch} successfully (commit ${sha}), merged onto the current live file — all existing features preserved."
   rm -f "$MANUAL_FILE" "$MANUAL_INSTR" "$REVIEW_FILE" "$MERGED_FILE" 2>/dev/null
