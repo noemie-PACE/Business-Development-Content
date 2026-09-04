@@ -196,7 +196,7 @@
 
       <div class="section">
         <h2>Executive Summary</h2>
-        <p style="color:var(--text-dim);font-size:13.5px;max-width:720px;">Batch 1 screened 54 Swiss D2C consumer brands across fashion and apparel, food and beverage, beauty and wellness, home and lifestyle, and sports and outdoor equipment against this dashboard's Switzerland-only, CHF 20,000-100,000 content-first scope. Four brands cleared the full evidence bar with a signal no more than two months old: Mammut, just sold to a new majority owner with its Swiss base intact, and On, whose newly launched global "Race for the Feeling" campaign opens a narrow, home-market content localisation opportunity, are the strongest findings, alongside BMC Switzerland's new Andermatt experience centre and La Prairie's Swiss Pristine launch.</p>
+        <p style="color:var(--text-dim);font-size:13.5px;max-width:720px;">Batch 1 screened 54 Swiss D2C consumer brands across fashion and apparel, food and beverage, beauty and wellness, home and lifestyle, and sports and outdoor equipment against this dashboard's Switzerland-only, CHF 20,000-100,000 content-first scope, using a six-month signal freshness window (standing policy set 4 September 2026). Seven brands cleared the full evidence bar: Mammut, just sold to a new majority owner with its Swiss base intact, and On, whose newly launched global "Race for the Feeling" campaign opens a narrow, home-market content localisation opportunity, are the strongest findings, alongside BMC Switzerland, La Prairie, Freitag, Assos of Switzerland and Victorinox.</p>
       </div>
 
       <div class="section">
@@ -385,9 +385,61 @@ const batch1 = [
     budgetEstimate:'CHF 25,000-55,000 (estimate, for a scoped Swiss-market storytelling and content piece around the Swiss Pristine launch, not the brand\'s global campaign; not a confirmed client budget).',
     contacts:[],
     newThisWeek:true
+  },
+  {
+    id:'freitag', inFocus:true, name:'Freitag', country:'Switzerland', industry:'D2C: Fashion & Apparel',
+    categories:['Content Retainer','Brand Activation','Community Management'],
+    score:56, friction:'Medium',
+    frictionReasoning:'Freitag runs an integrated in-house model where communication, manufacturing and sales sit under one roof, which typically means a smaller, tighter existing supplier list than a global brand, but also means any new content partner needs to fit closely with that in-house culture rather than simply pitching a generic retainer.',
+    scoreBreakdown:{'Strategic Fit':70,'Buying Signal Strength':55,'Budget Fit':55,'Content Opportunity':70,'Digital Transformation Opportunity':35,'Ease of Access':55,'Decision Maker Identified':0,'Competitive Intensity (favourability)':40},
+    signals:[{text:'Freitag opened a new store at Hirschenplatz in Zurich\'s old town, including an exclusive bag, a repair service and a rental offer, reinforcing the brand\'s connection to its home market.', source:'Tagesanzeiger, 12 June 2026', url:'https://www.tagesanzeiger.ch/freitag-eroeffnet-filiale-am-hirschenplatz-im-niederdorf-200480873816'}],
+    qualifiesD2C:true, qualifiesD2CBasis:'Sells directly to consumers via freitag.ch and its own flagship stores worldwide, brand-led with an integrated in-house communications, manufacturing and sales model; founded and headquartered in Zurich, Switzerland since 1993.',
+    abilityToPayBasis:'Employees: 51-100, per jobs.ch\'s company profile for FREITAG lab. ag (https://www.jobs.ch/fr/entreprises/28672-freitag-lab-ag/), above the 50 employee threshold.',
+    contentVolumeBasis:'Channel: Instagram (@freitaglab). 232,638 followers, verified via direct account view on 4 September 2026. Posting cadence: multiple posts per week confirmed directly (dated posts on 3 and 2 September and 31, 27, 26, 25, 24, 23, 21, 20 and 18 August 2026).',
+    primaryPaceService:'Content Retainer', secondaryPaceServices:['Video Content','Community Management'],
+    whyPace:'Freitag just opened a new Zurich old-town store with an exclusive bag, repair service and rental offer, all of which are naturally content-rich (launch coverage, repair-service explainer content, rental-offer social). Freitag\'s brand is built on storytelling around circularity and its Zurich home, which is a strong strategic match for PACE\'s Zurich base, though the brand\'s tight in-house model means the realistic entry point is a scoped project rather than a full retainer at first.',
+    outreach:'Why now: a new Zurich old-town flagship just opened with several genuinely new offers (exclusive bag, repair, rental) that all need explaining to customers. Signal: Tagesanzeiger, 12 June 2026. Service: Content Retainer plus Community Management for the Hirschenplatz launch and the new repair and rental services. First conversation: propose a short content series on the repair and rental offer, which is a genuinely new customer touchpoint rather than another product drop.',
+    budgetEstimate:'CHF 25,000-55,000 (estimate, based on a scoped content project for a mid-sized, in-house-culture Swiss brand; not a confirmed client budget).',
+    contacts:[],
+    newThisWeek:true
+  },
+  {
+    id:'assos-of-switzerland', inFocus:true, name:'Assos of Switzerland', country:'Switzerland', industry:'D2C: Sports & Outdoor Equipment',
+    categories:['Content Retainer','Brand Activation','Sponsorship'],
+    score:49, friction:'High',
+    frictionReasoning:'Assos appointed PaceUp Media as its global PR agency in late 2025 and already runs a professional team-sponsorship and PR operation (EF Pro Cycling, seasonal collection launches), so a scoped, non-PR content role is the realistic opening rather than the existing PR mandate.',
+    scoreBreakdown:{'Strategic Fit':55,'Buying Signal Strength':60,'Budget Fit':50,'Content Opportunity':65,'Digital Transformation Opportunity':30,'Ease of Access':30,'Decision Maker Identified':0,'Competitive Intensity (favourability)':25},
+    signals:[{text:'ASSOS unveiled the A50 Anniversary Drop, a limited-edition collection marking 50 years since founder Toni Maier revolutionised cycling apparel in 1976, built on the EQUIPE R racing platform with a "Techno-Anarchy" design language referencing the brand\'s Swiss engineering heritage.', source:'BikeBiz, 8 June 2026', url:'https://bikebiz.com/assos-of-switzerland-celebrates-fifty-years-of-speed-with-avant-garde-a50-anniversary-drop/'}],
+    qualifiesD2C:true, qualifiesD2CBasis:'Sells directly to consumers via assos.com alongside specialist retail, brand-led with a large always-on content and creator/team-sponsorship operation; founded in 1976 and based in Ticino, Switzerland.',
+    abilityToPayBasis:'Revenue and employees: approximately USD 30.6 million annual revenue and around 148 employees, per RocketReach\'s company profile for ASSOS of Switzerland GmbH (https://rocketreach.co/assos-of-switzerland-gmbh-profile_b5582a68f693e011), a third-party estimate rather than an official filing but comfortably above both the revenue and employee thresholds.',
+    contentVolumeBasis:'Channel: Instagram (@assosofswitzerland). 177,767 followers, verified via direct account view on 4 September 2026. Posting cadence: multiple posts per week confirmed directly (dated posts on 3 and 1 September and 31, 30, 29, 29, 28, 25, 24, 24 and 22 August 2026).',
+    primaryPaceService:'Content Retainer', secondaryPaceServices:['Video Content','Sponsorship'],
+    whyPace:'Assos\' 50th anniversary A50 Anniversary Drop is a genuine heritage storytelling moment built explicitly around Swiss engineering, but the brand\'s PR is already run by PaceUp Media and its team sponsorships already generate a large content pipeline, so PACE\'s realistic opening is a scoped production role (e.g. a specific product or heritage film) rather than the PR or global creative mandate.',
+    outreach:'Why now: Assos just marked its 50th anniversary with a flagship product drop built on Swiss engineering heritage. Signal: BikeBiz, 8 June 2026. Service: a scoped heritage or product content piece tied to the 50th anniversary story, distinct from the existing PaceUp Media PR mandate. First conversation: ask whether the anniversary storytelling extends beyond PR into owned video or social content, and offer a specific production piece rather than a broad retainer pitch.',
+    budgetEstimate:'CHF 20,000-45,000 (estimate, for a scoped production piece rather than an ongoing retainer, given the existing PR agency relationship; not a confirmed client budget).',
+    contacts:[],
+    newThisWeek:true
+  },
+  {
+    id:'victorinox', inFocus:true, name:'Victorinox', country:'Switzerland', industry:'D2C: Home & Lifestyle',
+    categories:['Content Retainer','Brand Activation','Digital Asset Management'],
+    score:41, friction:'High',
+    frictionReasoning:'Victorinox is a large, long-established global brand (over 1,850 employees as of the most recent published figures) that almost certainly already runs its content and campaigns through established agencies across multiple product categories (knives, watches, travel gear, fragrances), so PACE\'s realistic opening is narrow and category-specific rather than a brand-wide mandate.',
+    scoreBreakdown:{'Strategic Fit':45,'Buying Signal Strength':55,'Budget Fit':40,'Content Opportunity':55,'Digital Transformation Opportunity':25,'Ease of Access':20,'Decision Maker Identified':0,'Competitive Intensity (favourability)':20},
+    signals:[{text:'Victorinox introduced the Concept One, its first-ever watch with a solar-powered movement, featuring a Swiss-made Ronda 215 solar movement with an eight-month power reserve, launched 13 April 2026.', source:'Gear Patrol, 2 April 2026', url:'https://www.gearpatrol.com/watches/victorinox-concept-one/'}],
+    qualifiesD2C:true, qualifiesD2CBasis:'Sells directly to consumers via victorinox.com and its own flagship stores worldwide, brand-led with a large always-on content operation across multiple product categories; founded and headquartered in Ibach-Schwyz, Switzerland since 1884.',
+    abilityToPayBasis:'Employees: 1,850, and revenue: CHF 510 million, per Wikipedia\'s Victorinox entry citing 2014 company figures (https://en.wikipedia.org/wiki/Victorinox); dated, but the company has continued operating at a comparable or larger global scale since, so this comfortably clears both thresholds even allowing for the age of the figures.',
+    contentVolumeBasis:'Channel: Instagram (@victorinox). 322,039 followers, verified via direct account view on 4 September 2026. Posting cadence: multiple posts per week confirmed directly (dated posts on 3 and 1 September and 29, 27, 21, 20, 19, 17, 15, 12, 11 and 10 August 2026).',
+    primaryPaceService:'Content Retainer', secondaryPaceServices:['Video Content','Digital Asset Management'],
+    scaleCaution:true,
+    whyPace:'Victorinox just launched its first-ever solar-powered watch, a genuine product news moment for its watch division specifically. Given the brand\'s scale spans knives, watches, travel gear, fragrances and household goods, each likely with its own marketing structure, PACE\'s realistic opening is a scoped, category-specific content piece for the watch launch rather than a brand-wide mandate.',
+    outreach:'Why now: Victorinox just launched its first solar-powered watch, a genuine product first for the brand. Signal: Gear Patrol and Victorinox\'s own press materials, 2 April 2026 (product launched 13 April 2026). Service: a scoped video or social content piece for the watch division specifically. First conversation: approach the watch division\'s marketing team with a narrow proposal around the Concept One launch rather than the whole brand.',
+    budgetEstimate:'CHF 20,000-40,000 (estimate, for a scoped, single-category content piece given the brand\'s scale and likely existing agency relationships; not a confirmed client budget).',
+    contacts:[],
+    newThisWeek:true
   }
 ];
-const batchScanCounts = {1: 50}; // organisations searched but not qualified, per batch
+const batchScanCounts = {1: 47}; // organisations searched but not qualified, per batch
 const seedBatches = [ {n:1, data:batch1} ];
 // Legacy entries permanently purged from the database on load, never re-added by any batch
 const removedIds = [];
